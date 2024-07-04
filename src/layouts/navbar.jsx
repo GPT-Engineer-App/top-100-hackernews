@@ -11,7 +11,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { CircleUser, Menu, Package2 } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
-import { navItems } from "../App";
+const navItems = [
+  { to: "/", title: "Home" },
+  // Add more navigation items here as needed
+];
 
 const Layout = () => {
   return (
