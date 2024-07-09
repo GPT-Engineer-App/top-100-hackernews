@@ -9,8 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { CircleUser, Menu, Package2 } from "lucide-react";
+import { CircleUser, Menu, Package2, Moon, Sun } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
+import { useTheme } from "@/components/theme-provider";
+import { Toggle } from "@/components/ui/toggle";
+
 const navItems = [
   { to: "/", title: "Home" },
   // Add more navigation items here as needed
@@ -22,7 +25,10 @@ const Layout = () => {
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between">
         <DesktopNav />
         <MobileNav />
-        <UserMenu />
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <UserMenu />
+        </div>
       </header>
       <main className="flex-grow overflow-auto">
         <Outlet />
@@ -110,5 +116,21 @@ const NavItem = ({ to, children, className }) => (
     {children}
   </NavLink>
 );
+
+const ThemeToggle = () => {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <Toggle
+      aria-label="Toggle theme"
+      pressed={theme === "dark"}
+      onPressedChange={(pressed) => setTheme(pressed ? "dark" : "light")}
+    >
+      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </Toggle>
+  );
+};
 
 export default Layout;
